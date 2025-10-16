@@ -19,4 +19,12 @@ export class ProductsService {
     db.products.push(newProduct);
     return newProduct;
   }
+  public update(productData: Omit<Product, 'id'>, id: Product['id']): void {
+    db.products = db.products.map((product) => {
+      if (product.id === id) {
+        return { ...product, ...productData };
+      }
+      return product;
+    });
+  }
 }
