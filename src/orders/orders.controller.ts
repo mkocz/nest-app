@@ -25,17 +25,17 @@ export class OrdersController {
   }
 
   @Get('/:id')
-  public getById(@Param('id', new ParseUUIDPipe()) id: string) {
-    if (!this.ordersService.getById(id))
+  async getById(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.ordersService.getById(id)))
       throw new NotFoundException('Order not found');
     return this.ordersService.getById(id);
   }
 
   @Delete('/:id')
-  public delete(@Param('id', new ParseUUIDPipe()) id: string) {
-    if (!this.ordersService.getById(id))
+  async delete(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.ordersService.getById(id)))
       throw new NotFoundException('Order not found');
-    this.ordersService.delete(id);
+    await this.ordersService.delete(id);
     return { success: true };
   }
 
