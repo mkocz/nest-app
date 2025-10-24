@@ -24,11 +24,23 @@ export class ProductsController {
     return this.productsService.getAll();
   }
 
+  @Get('/extended')
+  getAllExtended(): any {
+    return this.productsService.getAllExtended();
+  }
+
   @Get('/:id')
   async getById(@Param('id', new ParseUUIDPipe()) id: string) {
     const prod = await this.productsService.getById(id);
     if (!prod) throw new NotFoundException('Product not found');
     return this.productsService.getById(id);
+  }
+
+  @Get('/extended/:id')
+  async getExtendedById(@Param('id', new ParseUUIDPipe()) id: string) {
+    const prod = await this.productsService.getExtendedById(id);
+    if (!prod) throw new NotFoundException('Product not found');
+    return prod;
   }
 
   @Delete('/:id')
